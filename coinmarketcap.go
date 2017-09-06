@@ -89,7 +89,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
  * @param {int} start - start date in seconds since epoch
  * @param {int} end - end date in seconds since epoch
  */
-func GetCoinGraphData(coin string, start int, end int) (CoinGraph, error) {
+func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	url = fmt.Sprintf("%s/%s/%d/%d", graphUrl, coin, start*1000, end*1000)
 	resp, err := makeReq(url)
 	if err != nil {

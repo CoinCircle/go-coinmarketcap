@@ -25,7 +25,7 @@ func main() {
 
 	}
 	//GetAllCoinInfo(0) for all coins, GetAllCoinInfo(10) for top 10 coins & etc.
-	getCoins, err := coinApi.GetAllCoinData()
+	getCoins, err := coinApi.GetAllCoinData(0)
 	if err != nil {
 		log.Println(err)
 	} else {
@@ -38,7 +38,7 @@ func main() {
 	end := secs
 
 	//GetCoinGraph for coin
-	getGraph, err := coinApi.GetCoinData("ethereum", start, end)
+	getGraph, err := coinApi.GetCoinGraphData("ethereum", start, end)
 	if err != nil {
 		log.Println(err)
 	} else {
