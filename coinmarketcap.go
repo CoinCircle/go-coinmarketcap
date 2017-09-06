@@ -14,7 +14,7 @@ var (
 	url      string
 )
 
-// GetMarketData - Get information about the global market data of the cryptocurrencies.
+// Get information about the global market data of the cryptocurrencies.
 func GetMarketData() (GlobalMarketData, error) {
 	url = fmt.Sprintf(baseUrl + "/global/")
 
@@ -29,7 +29,7 @@ func GetMarketData() (GlobalMarketData, error) {
 	return data, nil
 }
 
-// GetCoinData - Get information about a crypto currency.
+// Get information about a crypto currency.
 func GetCoinData(coin string) (Coin, error) {
 	url = fmt.Sprintf("%s/ticker/%s", baseUrl, coin)
 	resp, err := makeReq(url)
@@ -47,7 +47,7 @@ func GetCoinData(coin string) (Coin, error) {
 	return data[0], nil
 }
 
-// GetAllCoinData - Get information about all coins listed in Coin Market Cap.
+// Get information about all coins listed in Coin Market Cap.
 func GetAllCoinData(limit int) (map[string]Coin, error) {
 	var l string
 	if limit > 0 {
@@ -71,7 +71,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 	return allCoins, nil
 }
 
-// GetCoinGraph - Get graph data points for a crypto currency
+// Get graph data points for a crypto currency.
 func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	url = fmt.Sprintf("%s/%s/%d/%d", graphUrl, coin, start*1000, end*1000)
 	resp, err := makeReq(url)
@@ -89,7 +89,7 @@ func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	return data, nil
 }
 
-// doReq - HTTP Client
+// HTTP Client
 func doReq(req *http.Request) ([]byte, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -108,7 +108,7 @@ func doReq(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
-// makeReq - HTTP Request Helper
+// HTTP Request Helper
 func makeReq(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
