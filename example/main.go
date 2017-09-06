@@ -15,7 +15,7 @@ func main() {
 	} else {
 		fmt.Println(getMarket)
 	}
-	//Get info about one asset
+	//Get info about coin
 	getBTC, err := coinApi.GetCoinInfo("bitcoin")
 	if err != nil {
 		log.Println(err)
@@ -29,6 +29,14 @@ func main() {
 		log.Println(err)
 	} else {
 		fmt.Println(getCoins["ethereum"])
+	}
+
+	//GetCoinGraph for coin
+	getGraph, err := coinApi.GetCoinGraph()
+	if err != nil {
+		log.Println(err)
+	} else {
+		fmt.Println(getGraph)
 	}
 
 }

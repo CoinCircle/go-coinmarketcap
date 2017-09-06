@@ -9,13 +9,14 @@ import (
 )
 
 var (
-	baseURL = "https://api.coinmarketcap.com/v1"
+	baseUrl = "https://api.coinmarketcap.com/v1"
+	graphsUrl = "https://graphs.coinmarketcap.com/currencies"
 	url     string
 )
 
 //GetMarketData - Get information about the global market data of the cryptocurrencies
 func GetMarketData() (GlobalMarketData, error) {
-	url = fmt.Sprintf(baseURL + "/global/")
+	url = fmt.Sprintf(baseUrl + "/global/")
 
 	resp, err := makeReq(url)
 
@@ -30,7 +31,7 @@ func GetMarketData() (GlobalMarketData, error) {
 
 //GetCoinInfo - Get information about single crypto currency
 func GetCoinInfo(coin string) (Coin, error) {
-	url = fmt.Sprintf("%s/ticker/%s", baseURL, coin)
+	url = fmt.Sprintf("%s/ticker/%s", baseUrl, coin)
 	resp, err := makeReq(url)
 	if err != nil {
 		log.Println(err)
@@ -52,7 +53,7 @@ func GetAllCoinInfo(limit int) (map[string]Coin, error) {
 	if limit > 0 {
 		l = fmt.Sprintf("?limit=%v", limit)
 	}
-	url = fmt.Sprintf("%s/ticker/%s", baseURL, l)
+	url = fmt.Sprintf("%s/ticker/%s", baseUrl, l)
 
 	resp, err := makeReq(url)
 
@@ -68,6 +69,26 @@ func GetAllCoinInfo(limit int) (map[string]Coin, error) {
 	}
 
 	return allCoins, nil
+}
+
+//GetCoinGraph - Get graph data points for crypto currency
+func GetCoinGraph(coin string) (CoinGraph, error) {
+	start := "1483228800000"
+	end := "1504670068000"
+	url = fmt.Sprintf("%s/%s/%s/%s", graphUrl, coin, start, end)
+	resp, err := makeReq(url)
+	if err != nil {
+		log.Println(err)
+		return CoinGraph{}, err
+	}
+	var data CoinGraph
+	err = json.Unmarshal(resp, &data)
+	if err != nil {
+		log.Println(err)
+		return CoinGraph{}, err
+	}
+
+	return data, nil
 }
 
 //Client

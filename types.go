@@ -27,3 +27,8 @@ type GlobalMarketData struct {
 	ActiveAssets      int     `json:"active_assets"`
 	ActiveMarkets     int     `json:"active_markets"`
 }
+
+// CoinGraph struct
+type CoinGraph struct {
+	PriceUsd [][]float64 `json:"price_usd"`
+}
