@@ -1,4 +1,4 @@
-package cmcAPI
+package coinmarketcap
 
 //Coin struct
 type Coin struct {
