@@ -9,12 +9,15 @@ import (
 )
 
 var (
-	baseUrl = "https://api.coinmarketcap.com/v1"
+	baseUrl  = "https://api.coinmarketcap.com/v1"
 	graphUrl = "https://graphs.coinmarketcap.com/currencies"
-	url     string
+	url      string
 )
 
-//GetMarketData - Get information about the global market data of the cryptocurrencies
+/**
+* GetMarketData
+* @desc Get information about the global market data of the cryptocurrencies.
+ */
 func GetMarketData() (GlobalMarketData, error) {
 	url = fmt.Sprintf(baseUrl + "/global/")
 
@@ -29,8 +32,12 @@ func GetMarketData() (GlobalMarketData, error) {
 	return data, nil
 }
 
-//GetCoinInfo - Get information about single crypto currency
-func GetCoinInfo(coin string) (Coin, error) {
+/**
+ * GetCoinData
+ * @desc Get information about a crypto currency.
+ * @param {string} coin - coin
+ */
+func GetCoinData(coin string) (Coin, error) {
 	url = fmt.Sprintf("%s/ticker/%s", baseUrl, coin)
 	resp, err := makeReq(url)
 	if err != nil {
@@ -47,8 +54,12 @@ func GetCoinInfo(coin string) (Coin, error) {
 	return data[0], nil
 }
 
-//GetAllCoinInfo - Get information about all coins listed in Coin Market Cap. If you want to limit the search to top 10 coins pass 10 as int, if you want all - pass 0 == No Limit
-func GetAllCoinInfo(limit int) (map[string]Coin, error) {
+/**
+ * GetAllCoinData
+ * @desc Get information about all coins listed in Coin Market Cap.
+ * @param {int} limit - limit search results
+ */
+func GetAllCoinData(limit int) (map[string]Coin, error) {
 	var l string
 	if limit > 0 {
 		l = fmt.Sprintf("?limit=%v", limit)
@@ -71,11 +82,15 @@ func GetAllCoinInfo(limit int) (map[string]Coin, error) {
 	return allCoins, nil
 }
 
-//GetCoinGraph - Get graph data points for crypto currency
-func GetCoinGraph(coin string) (CoinGraph, error) {
-	start := "1483228800000"
-	end := "1504670068000"
-	url = fmt.Sprintf("%s/%s/%s/%s", graphUrl, coin, start, end)
+/**
+ * GetCoinGraph
+ * @desc Get graph data points for a crypto currency
+ * @param {string} coin - coin
+ * @param {int} start - start date in seconds since epoch
+ * @param {int} end - end date in seconds since epoch
+ */
+func GetCoinGraphData(coin string, start int, end int) (CoinGraph, error) {
+	url = fmt.Sprintf("%s/%s/%d/%d", graphUrl, coin, start*1000, end*1000)
 	resp, err := makeReq(url)
 	if err != nil {
 		log.Println(err)
@@ -91,7 +106,7 @@ func GetCoinGraph(coin string) (CoinGraph, error) {
 	return data, nil
 }
 
-//Client
+// HTTP Client
 func doReq(req *http.Request) ([]byte, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -110,6 +125,7 @@ func doReq(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
+// HTTP Request Helper
 func makeReq(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {

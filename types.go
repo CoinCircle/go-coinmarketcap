@@ -8,13 +8,13 @@ type Coin struct {
 	Rank             int     `json:"rank,string"`
 	PriceUsd         float64 `json:"price_usd,string"`
 	PriceBtc         float64 `json:"price_btc,string"`
-	Two4HVolumeUsd   float64 `json:"24h_volume_usd,string"`
+	Usd24hVolume     float64 `json:"24h_volume_usd,string"`
 	MarketCapUsd     float64 `json:"market_cap_usd,string"`
 	AvailableSupply  float64 `json:"available_supply,string"`
 	TotalSupply      float64 `json:"total_supply,string"`
-	PercentChange1H  float64 `json:"percent_change_1h,string"`
-	PercentChange24H float64 `json:"percent_change_24h,string"`
-	PercentChange7D  float64 `json:"percent_change_7d,string"`
+	PercentChange1h  float64 `json:"percent_change_1h,string"`
+	PercentChange24h float64 `json:"percent_change_24h,string"`
+	PercentChange7d  float64 `json:"percent_change_7d,string"`
 	LastUpdated      string  `json:"last_updated"`
 }
 
@@ -30,5 +30,11 @@ type GlobalMarketData struct {
 
 // CoinGraph struct
 type CoinGraph struct {
-	PriceUsd [][]float64 `json:"price_usd"`
+	MarketCapByAvailableAupply  [][]float64 `json:"market_cap_by_available_supply"`
+	PriceBtc                    [][]float64 `json:"price_btc"`
+	PriceUsd                    [][]float64 `json:"price_usd"`
+	VolumeUsd                   [][]float64 `json:"volume_usd"`
 }
+
+
+
