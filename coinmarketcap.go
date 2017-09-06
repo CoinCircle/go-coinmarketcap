@@ -14,7 +14,7 @@ var (
 	url      string
 )
 
-/**
+/*
 * GetMarketData
 * @desc Get information about the global market data of the cryptocurrencies.
  */
@@ -32,7 +32,7 @@ func GetMarketData() (GlobalMarketData, error) {
 	return data, nil
 }
 
-/**
+/*
  * GetCoinData
  * @desc Get information about a crypto currency.
  * @param {string} coin - coin
@@ -54,7 +54,7 @@ func GetCoinData(coin string) (Coin, error) {
 	return data[0], nil
 }
 
-/**
+/*
  * GetAllCoinData
  * @desc Get information about all coins listed in Coin Market Cap.
  * @param {int} limit - limit search results
@@ -82,7 +82,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 	return allCoins, nil
 }
 
-/**
+/*
  * GetCoinGraph
  * @desc Get graph data points for a crypto currency
  * @param {string} coin - coin

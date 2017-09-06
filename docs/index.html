@@ -1,0 +1,357 @@
+use 'godoc cmd/github.com/miguelmota/go-coinmarketcap' for documentation on the github.com/miguelmota/go-coinmarketcap command 
+
+<!--
+	Copyright 2009 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+-->
+<!--
+	Note: Static (i.e., not template-generated) href and id
+	attributes start with "pkg-" to make it impossible for
+	them to conflict with generated attributes (some of which
+	correspond to Go identifiers).
+-->
+
+	<script type='text/javascript'>
+	document.ANALYSIS_DATA = ;
+	document.CALLGRAPH = ;
+	</script>
+
+	
+		
+		<div id="short-nav">
+			<dl>
+			<dd><code>import "github.com/miguelmota/go-coinmarketcap"</code></dd>
+			</dl>
+			<dl>
+			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
+			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
+			
+			
+				<dd><a href="#pkg-subdirectories">Subdirectories</a></dd>
+			
+			</dl>
+		</div>
+		<!-- The package's Name is printed as title by the top-level template -->
+		<div id="pkg-overview" class="toggleVisible">
+			<div class="collapsed">
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+			</div>
+			<div class="expanded">
+				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
+				
+			</div>
+		</div>
+		
+
+		<div id="pkg-index" class="toggleVisible">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+		</div>
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+
+		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
+			<div id="manual-nav">
+			<dl>
+			
+			
+			
+				
+				<dd><a href="#GetAllCoinData">func GetAllCoinData(limit int) (map[string]Coin, error)</a></dd>
+			
+			
+				
+				<dd><a href="#Coin">type Coin</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#GetCoinData">func GetCoinData(coin string) (Coin, error)</a></dd>
+				
+				
+			
+				
+				<dd><a href="#CoinGraph">type CoinGraph</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#GetCoinGraphData">func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error)</a></dd>
+				
+				
+			
+				
+				<dd><a href="#GlobalMarketData">type GlobalMarketData</a></dd>
+				
+					
+					<dd>&nbsp; &nbsp; <a href="#GetMarketData">func GetMarketData() (GlobalMarketData, error)</a></dd>
+				
+				
+			
+			
+			</dl>
+			</div><!-- #manual-nav -->
+
+		
+
+		
+			<h4>Package files</h4>
+			<p>
+			<span style="font-size:90%">
+			
+				<a href="/src/github.com/miguelmota/go-coinmarketcap/coinmarketcap.go">coinmarketcap.go</a>
+			
+				<a href="/src/github.com/miguelmota/go-coinmarketcap/types.go">types.go</a>
+			
+			</span>
+			</p>
+		
+		</div><!-- .expanded -->
+		</div><!-- #pkg-index -->
+
+		<div id="pkg-callgraph" class="toggle" style="display: none">
+		<div class="collapsed">
+			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
+		</div> <!-- .expanded -->
+		<div class="expanded">
+			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
+			<p>
+			  In the call graph viewer below, each node
+			  is a function belonging to this package
+			  and its children are the functions it
+			  calls&mdash;perhaps dynamically.
+			</p>
+			<p>
+			  The root nodes are the entry points of the
+			  package: functions that may be called from
+			  outside the package.
+			  There may be non-exported or anonymous
+			  functions among them if they are called
+			  dynamically from another package.
+			</p>
+			<p>
+			  Click a node to visit that function's source code.
+			  From there you can visit its callers by
+			  clicking its declaring <code>func</code>
+			  token.
+			</p>
+			<p>
+			  Functions may be omitted if they were
+			  determined to be unreachable in the
+			  particular programs or tests that were
+			  analyzed.
+			</p>
+			<!-- Zero means show all package entry points. -->
+			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
+		</div>
+		</div> <!-- #pkg-callgraph -->
+
+		
+		
+		
+			
+			
+			<h2 id="GetAllCoinData">func <a href="/src/target/coinmarketcap.go?s=1129:1184#L52">GetAllCoinData</a>
+				<a class="permalink" href="#GetAllCoinData">&#xb6;</a>
+			</h2>
+			<pre>func GetAllCoinData(limit <a href="/pkg/builtin/#int">int</a>) (map[<a href="/pkg/builtin/#string">string</a>]<a href="#Coin">Coin</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+			<p>
+*
+</p>
+<pre>* GetAllCoinData
+* @desc Get information about all coins listed in Coin Market Cap.
+* @param {int} limit - limit search results
+</pre>
+
+			
+			
+
+		
+		
+			
+			
+			<h2 id="Coin">type <a href="/src/target/types.go?s=37:785#L1">Coin</a>
+				<a class="permalink" href="#Coin">&#xb6;</a>
+			</h2>
+			<p>
+Coin struct
+</p>
+
+			<pre>type Coin struct {
+<span id="Coin.ID"></span>    ID               <a href="/pkg/builtin/#string">string</a>  `json:&#34;id&#34;`
+<span id="Coin.Name"></span>    Name             <a href="/pkg/builtin/#string">string</a>  `json:&#34;name&#34;`
+<span id="Coin.Symbol"></span>    Symbol           <a href="/pkg/builtin/#string">string</a>  `json:&#34;symbol&#34;`
+<span id="Coin.Rank"></span>    Rank             <a href="/pkg/builtin/#int">int</a>     `json:&#34;rank,string&#34;`
+<span id="Coin.PriceUsd"></span>    PriceUsd         <a href="/pkg/builtin/#float64">float64</a> `json:&#34;price_usd,string&#34;`
+<span id="Coin.PriceBtc"></span>    PriceBtc         <a href="/pkg/builtin/#float64">float64</a> `json:&#34;price_btc,string&#34;`
+<span id="Coin.Usd24hVolume"></span>    Usd24hVolume     <a href="/pkg/builtin/#float64">float64</a> `json:&#34;24h_volume_usd,string&#34;`
+<span id="Coin.MarketCapUsd"></span>    MarketCapUsd     <a href="/pkg/builtin/#float64">float64</a> `json:&#34;market_cap_usd,string&#34;`
+<span id="Coin.AvailableSupply"></span>    AvailableSupply  <a href="/pkg/builtin/#float64">float64</a> `json:&#34;available_supply,string&#34;`
+<span id="Coin.TotalSupply"></span>    TotalSupply      <a href="/pkg/builtin/#float64">float64</a> `json:&#34;total_supply,string&#34;`
+<span id="Coin.PercentChange1h"></span>    PercentChange1h  <a href="/pkg/builtin/#float64">float64</a> `json:&#34;percent_change_1h,string&#34;`
+<span id="Coin.PercentChange24h"></span>    PercentChange24h <a href="/pkg/builtin/#float64">float64</a> `json:&#34;percent_change_24h,string&#34;`
+<span id="Coin.PercentChange7d"></span>    PercentChange7d  <a href="/pkg/builtin/#float64">float64</a> `json:&#34;percent_change_7d,string&#34;`
+<span id="Coin.LastUpdated"></span>    LastUpdated      <a href="/pkg/builtin/#string">string</a>  `json:&#34;last_updated&#34;`
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GetCoinData">func <a href="/src/target/coinmarketcap.go?s=670:713#L30">GetCoinData</a>
+					<a class="permalink" href="#GetCoinData">&#xb6;</a>
+				</h3>
+				<pre>func GetCoinData(coin <a href="/pkg/builtin/#string">string</a>) (<a href="#Coin">Coin</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+*
+</p>
+<pre>* GetCoinData
+* @desc Get information about a crypto currency.
+* @param {string} coin - coin
+</pre>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="CoinGraph">type <a href="/src/target/types.go?s=1205:1492#L22">CoinGraph</a>
+				<a class="permalink" href="#CoinGraph">&#xb6;</a>
+			</h2>
+			<p>
+CoinGraph struct
+</p>
+
+			<pre>type CoinGraph struct {
+<span id="CoinGraph.MarketCapByAvailableAupply"></span>    MarketCapByAvailableAupply [][]<a href="/pkg/builtin/#float64">float64</a> `json:&#34;market_cap_by_available_supply&#34;`
+<span id="CoinGraph.PriceBtc"></span>    PriceBtc                   [][]<a href="/pkg/builtin/#float64">float64</a> `json:&#34;price_btc&#34;`
+<span id="CoinGraph.PriceUsd"></span>    PriceUsd                   [][]<a href="/pkg/builtin/#float64">float64</a> `json:&#34;price_usd&#34;`
+<span id="CoinGraph.VolumeUsd"></span>    VolumeUsd                  [][]<a href="/pkg/builtin/#float64">float64</a> `json:&#34;volume_usd&#34;`
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GetCoinGraphData">func <a href="/src/target/coinmarketcap.go?s=1807:1884#L82">GetCoinGraphData</a>
+					<a class="permalink" href="#GetCoinGraphData">&#xb6;</a>
+				</h3>
+				<pre>func GetCoinGraphData(coin <a href="/pkg/builtin/#string">string</a>, start <a href="/pkg/builtin/#int64">int64</a>, end <a href="/pkg/builtin/#int64">int64</a>) (<a href="#CoinGraph">CoinGraph</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+*
+</p>
+<pre>* GetCoinGraph
+* @desc Get graph data points for a crypto currency
+* @param {string} coin - coin
+* @param {int} start - start date in seconds since epoch
+* @param {int} end - end date in seconds since epoch
+</pre>
+
+				
+				
+			
+
+			
+		
+			
+			
+			<h2 id="GlobalMarketData">type <a href="/src/target/types.go?s=813:1183#L12">GlobalMarketData</a>
+				<a class="permalink" href="#GlobalMarketData">&#xb6;</a>
+			</h2>
+			<p>
+GlobalMarketData struct
+</p>
+
+			<pre>type GlobalMarketData struct {
+<span id="GlobalMarketData.TotalMarketCapUsd"></span>    TotalMarketCapUsd <a href="/pkg/builtin/#float64">float64</a> `json:&#34;total_market_cap_usd&#34;`
+<span id="GlobalMarketData.Total24HVolumeUsd"></span>    Total24HVolumeUsd <a href="/pkg/builtin/#float64">float64</a> `json:&#34;total_24h_volume_usd&#34;`
+<span id="GlobalMarketData.BitcoinDominance"></span>    BitcoinDominance  <a href="/pkg/builtin/#float64">float64</a> `json:&#34;bitcoin_percentage_of_market_cap&#34;`
+<span id="GlobalMarketData.ActiveCurrencies"></span>    ActiveCurrencies  <a href="/pkg/builtin/#int">int</a>     `json:&#34;active_currencies&#34;`
+<span id="GlobalMarketData.ActiveAssets"></span>    ActiveAssets      <a href="/pkg/builtin/#int">int</a>     `json:&#34;active_assets&#34;`
+<span id="GlobalMarketData.ActiveMarkets"></span>    ActiveMarkets     <a href="/pkg/builtin/#int">int</a>     `json:&#34;active_markets&#34;`
+}</pre>
+
+			
+
+			
+
+			
+			
+			
+
+			
+				
+				<h3 id="GetMarketData">func <a href="/src/target/coinmarketcap.go?s=324:370#L11">GetMarketData</a>
+					<a class="permalink" href="#GetMarketData">&#xb6;</a>
+				</h3>
+				<pre>func GetMarketData() (<a href="#GlobalMarketData">GlobalMarketData</a>, <a href="/pkg/builtin/#error">error</a>)</pre>
+				<p>
+*
+* GetMarketData
+* @desc Get information about the global market data of the cryptocurrencies.
+</p>
+
+				
+				
+			
+
+			
+		
+	
+
+	
+
+
+
+
+
+	
+	
+		<h2 id="pkg-subdirectories">Subdirectories</h2>
+	
+	
+
+
+	<div class="pkg-dir">
+		<table>
+			<tr>
+				<th class="pkg-name">Name</th>
+				<th class="pkg-synopsis">Synopsis</th>
+			</tr>
+
+			
+			<tr>
+				<td colspan="2"><a href="..">..</a></td>
+			</tr>
+			
+
+			
+				
+					<tr>
+						<td class="pkg-name" style="padding-left: 0px;">
+							<a href="example/">example</a>
+						</td>
+						<td class="pkg-synopsis">
+							
+						</td>
+					</tr>
+				
+			
+		</table>
+	</div>
+
+
+	
+
