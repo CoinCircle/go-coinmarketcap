@@ -109,11 +109,11 @@ func main() {
 	}
 
 	// Get info about coin
-	ethInfo, err := coinApi.GetCoinData("ethereum")
+	coinInfo, err := coinApi.GetCoinData("ethereum")
 	if err != nil {
 		log.Println(err)
 	} else {
-		fmt.Println(ethInfo)
+		fmt.Println(coinInfo)
 
 	}
 	// Get top 10 coins
@@ -131,11 +131,11 @@ func main() {
 	end := secs
 
 	// Get graph data for coin
-	getGraph, err := coinApi.GetCoinGraphData("ethereum", start, end)
+	coinGraphData, err := coinApi.GetCoinGraphData("ethereum", start, end)
 	if err != nil {
 		log.Println(err)
 	} else {
-		fmt.Println(getGraph)
+		fmt.Println(coinGraphData)
 	}
 
 }
