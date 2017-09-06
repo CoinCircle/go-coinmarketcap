@@ -21,7 +21,7 @@ type Coin struct {
 //GlobalMarketData struct
 type GlobalMarketData struct {
 	TotalMarketCapUsd float64 `json:"total_market_cap_usd"`
-	Total24HVolumeUsd float64 `json:"total_24h_volume_usd"`
+	Total24hVolumeUsd float64 `json:"total_24h_volume_usd"`
 	BitcoinDominance  float64 `json:"bitcoin_percentage_of_market_cap"`
 	ActiveCurrencies  int     `json:"active_currencies"`
 	ActiveAssets      int     `json:"active_assets"`
@@ -30,11 +30,8 @@ type GlobalMarketData struct {
 
 // CoinGraph struct
 type CoinGraph struct {
-	MarketCapByAvailableAupply  [][]float64 `json:"market_cap_by_available_supply"`
-	PriceBtc                    [][]float64 `json:"price_btc"`
-	PriceUsd                    [][]float64 `json:"price_usd"`
-	VolumeUsd                   [][]float64 `json:"volume_usd"`
+	MarketCapByAvailableAupply [][]float64 `json:"market_cap_by_available_supply"`
+	PriceBtc                   [][]float64 `json:"price_btc"`
+	PriceUsd                   [][]float64 `json:"price_usd"`
+	VolumeUsd                  [][]float64 `json:"volume_usd"`
 }
-
-
-

@@ -69,7 +69,7 @@ Get graph data points for a crypto currency.
 ```go
 type GlobalMarketData struct {
 	TotalMarketCapUsd float64 `json:"total_market_cap_usd"`
-	Total24HVolumeUsd float64 `json:"total_24h_volume_usd"`
+	Total24hVolumeUsd float64 `json:"total_24h_volume_usd"`
 	BitcoinDominance  float64 `json:"bitcoin_percentage_of_market_cap"`
 	ActiveCurrencies  int     `json:"active_currencies"`
 	ActiveAssets      int     `json:"active_assets"`
