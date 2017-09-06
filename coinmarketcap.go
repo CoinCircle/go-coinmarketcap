@@ -1,3 +1,4 @@
+// Coin Market Cap API in golang
 package coinmarketcap
 
 import (
