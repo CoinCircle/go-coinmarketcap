@@ -14,10 +14,7 @@ var (
 	url      string
 )
 
-/*
-* GetMarketData
-* @desc Get information about the global market data of the cryptocurrencies.
- */
+// GetMarketData - Get information about the global market data of the cryptocurrencies.
 func GetMarketData() (GlobalMarketData, error) {
 	url = fmt.Sprintf(baseUrl + "/global/")
 
@@ -32,11 +29,7 @@ func GetMarketData() (GlobalMarketData, error) {
 	return data, nil
 }
 
-/*
- * GetCoinData
- * @desc Get information about a crypto currency.
- * @param {string} coin - coin
- */
+// GetCoinData - Get information about a crypto currency.
 func GetCoinData(coin string) (Coin, error) {
 	url = fmt.Sprintf("%s/ticker/%s", baseUrl, coin)
 	resp, err := makeReq(url)
@@ -54,11 +47,7 @@ func GetCoinData(coin string) (Coin, error) {
 	return data[0], nil
 }
 
-/*
- * GetAllCoinData
- * @desc Get information about all coins listed in Coin Market Cap.
- * @param {int} limit - limit search results
- */
+// GetAllCoinData - Get information about all coins listed in Coin Market Cap.
 func GetAllCoinData(limit int) (map[string]Coin, error) {
 	var l string
 	if limit > 0 {
@@ -82,13 +71,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 	return allCoins, nil
 }
 
-/*
- * GetCoinGraph
- * @desc Get graph data points for a crypto currency
- * @param {string} coin - coin
- * @param {int} start - start date in seconds since epoch
- * @param {int} end - end date in seconds since epoch
- */
+// GetCoinGraph - Get graph data points for a crypto currency
 func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	url = fmt.Sprintf("%s/%s/%d/%d", graphUrl, coin, start*1000, end*1000)
 	resp, err := makeReq(url)
@@ -106,7 +89,7 @@ func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	return data, nil
 }
 
-// HTTP Client
+// doReq - HTTP Client
 func doReq(req *http.Request) ([]byte, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -125,7 +108,7 @@ func doReq(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
-// HTTP Request Helper
+// makeReq - HTTP Request Helper
 func makeReq(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
