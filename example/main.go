@@ -33,9 +33,9 @@ func main() {
 		fmt.Println(top10)
 	}
 
+	var threeMonths int64 = (59 * 60 * 24 * 60)
 	now := time.Now()
 	secs := now.Unix()
-	threeMonths := (59 * 60 * 24 * 60)
 	start := secs - threeMonths
 	end := secs
 
