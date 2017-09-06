@@ -9,35 +9,37 @@ import (
 )
 
 func main() {
-	//Get global market data
-	getMarket, err := coinApi.GetMarketData()
+	// Get global market data
+	marketInfo, err := coinApi.GetMarketData()
 	if err != nil {
 		log.Println(err)
 	} else {
-		fmt.Println(getMarket)
+		fmt.Println(marketInfo)
 	}
-	//Get info about coin
-	getBTC, err := coinApi.GetCoinData("bitcoin")
+
+	// Get info about coin
+	ethInfo, err := coinApi.GetCoinData("ethereum")
 	if err != nil {
 		log.Println(err)
 	} else {
-		fmt.Println(getBTC)
+		fmt.Println(ethInfo)
 
 	}
-	//GetAllCoinInfo(0) for all coins, GetAllCoinInfo(10) for top 10 coins & etc.
-	getCoins, err := coinApi.GetAllCoinData(0)
+	// Get top 10 coins
+	top10, err := coinApi.GetAllCoinData(10)
 	if err != nil {
 		log.Println(err)
 	} else {
-		fmt.Println(getCoins["ethereum"])
+		fmt.Println(top10)
 	}
 
 	now := time.Now()
 	secs := now.Unix()
-	start := secs - (60 * 60 * 24 * 60)
+	threeMonths = (60 * 60 * 24 * 60)
+	start := secs - threeMonths
 	end := secs
 
-	//GetCoinGraph for coin
+	// Get graph data for coin
 	getGraph, err := coinApi.GetCoinGraphData("ethereum", start, end)
 	if err != nil {
 		log.Println(err)

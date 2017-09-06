@@ -63,7 +63,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 	if err != nil {
 		log.Println(err)
 	}
-	//creating map from the array
+	// creating map from the array
 	allCoins := make(map[string]Coin)
 	for i := 0; i < len(data); i++ {
 		allCoins[data[i].ID] = data[i]
