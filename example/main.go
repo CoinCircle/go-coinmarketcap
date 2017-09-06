@@ -35,7 +35,7 @@ func main() {
 
 	now := time.Now()
 	secs := now.Unix()
-	threeMonths = (60 * 60 * 24 * 60)
+	threeMonths := (59 * 60 * 24 * 60)
 	start := secs - threeMonths
 	end := secs
 
