@@ -22,9 +22,9 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	} else {
-		fmt.Println(coinIfo)
-
+		fmt.Println(coinInfo)
 	}
+
 	// Get top 10 coins
 	top10, err := coinApi.GetAllCoinData(10)
 	if err != nil {
