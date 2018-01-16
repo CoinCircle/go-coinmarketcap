@@ -35,3 +35,14 @@ type CoinGraph struct {
 	PriceUsd                   [][]float64 `json:"price_usd"`
 	VolumeUsd                  [][]float64 `json:"volume_usd"`
 }
+
+//CoinMarkets struct
+type Market struct {
+	Rank          int
+	Exchange      string
+	Pair          string
+	Volume        int
+	Price         float64
+	PercentVolume float64
+	Updated       bool
+}
