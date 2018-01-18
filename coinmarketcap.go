@@ -1,4 +1,4 @@
-// Coin Market Cap API in golang
+// Coin Market Cap API fo golang
 package coinmarketcap
 
 import (
@@ -6,6 +6,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+	"strings"
+
+	"github.com/anaskhan96/soup"
 )
 
 var (
@@ -14,7 +18,7 @@ var (
 	url      string
 )
 
-// Get information about the global market data of the cryptocurrencies.
+// GetMarketData get information about the global market data of the cryptocurrencies
 func GetMarketData() (GlobalMarketData, error) {
 	url = fmt.Sprintf(baseUrl + "/global/")
 
@@ -29,7 +33,7 @@ func GetMarketData() (GlobalMarketData, error) {
 	return data, nil
 }
 
-// Get information about a crypto currency.
+// GetCoinData get information about a crypto currency
 func GetCoinData(coin string) (Coin, error) {
 	url = fmt.Sprintf("%s/ticker/%s", baseUrl, coin)
 	resp, err := makeReq(url)
@@ -45,7 +49,7 @@ func GetCoinData(coin string) (Coin, error) {
 	return data[0], nil
 }
 
-// Get information about all coins listed in Coin Market Cap.
+// GetAllCoinData get information about all coins listed in Coin Market Cap
 func GetAllCoinData(limit int) (map[string]Coin, error) {
 	var l string
 	if limit >= 0 {
@@ -69,7 +73,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 	return allCoins, nil
 }
 
-// Get graph data points for a crypto currency.
+// GetCoinGraphData get graph data points for a crypto currency
 func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	url = fmt.Sprintf("%s/%s/%d/%d", graphUrl, coin, start*1000, end*1000)
 	resp, err := makeReq(url)
@@ -83,6 +87,33 @@ func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	}
 
 	return data, nil
+}
+
+// CoinMarkets get market data for a coin name.
+func CoinMarkets(coin string) ([]Market, error) {
+	url := fmt.Sprintf("https://coinmarketcap.com/currencies/%s/#markets", coin)
+	var markets []Market
+	response, err := soup.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	rows := soup.HTMLParse(response).Find("table", "id", "markets-table").Find("tbody").FindAll("tr")
+	for _, row := range rows {
+		var data []string
+		for colNum, column := range row.FindAll("td") {
+			for _, link := range column.FindAll("a") {
+				data = append(data, strings.TrimSpace(link.Text()))
+			}
+			if colNum == 0 || colNum == 5 || colNum == 6 {
+				data = append(data, column.Text())
+			}
+			for _, span := range column.FindAll("span") {
+				data = append(data, strings.TrimSpace(span.Text()))
+			}
+		}
+		markets = append(markets, Market{Rank: toInt(data[0]), Exchange: data[1], Pair: data[2], Volume: toInt(data[3]), Price: toFloat(data[4]), PercentVolume: toFloat(data[5]), Updated: (data[6] == "Recently")})
+	}
+	return markets, nil
 }
 
 // HTTP Client
@@ -116,4 +147,16 @@ func makeReq(url string) ([]byte, error) {
 	}
 
 	return resp, err
+}
+
+// helper Function for CoinMarkets
+func toInt(raw_int string) int {
+	parsed, _ := strconv.Atoi(strings.Replace(strings.Replace(raw_int, "$", "", -1), ",", "", -1))
+	return parsed
+}
+
+// helper Function for CoinMarkets
+func toFloat(raw_float string) float64 {
+	parsed, _ := strconv.ParseFloat(strings.Replace(strings.Replace(strings.Replace(raw_float, "$", "", -1), ",", "", -1), "%", "", -1), 64)
+	return parsed
 }
