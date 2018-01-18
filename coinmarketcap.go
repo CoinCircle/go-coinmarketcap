@@ -1,4 +1,4 @@
-// Coin Market Cap API fo golang
+// Package coinmarketcap Coin Market Cap API fo golang
 package coinmarketcap
 
 import (
@@ -13,14 +13,14 @@ import (
 )
 
 var (
-	baseUrl  = "https://api.coinmarketcap.com/v1"
-	graphUrl = "https://graphs2.coinmarketcap.com/currencies"
+	baseURL  = "https://api.coinmarketcap.com/v1"
+	graphURL = "https://graphs2.coinmarketcap.com/currencies"
 	url      string
 )
 
 // GetMarketData get information about the global market data of the cryptocurrencies
 func GetMarketData() (GlobalMarketData, error) {
-	url = fmt.Sprintf(baseUrl + "/global/")
+	url = fmt.Sprintf(baseURL + "/global/")
 
 	resp, err := makeReq(url)
 
@@ -35,7 +35,7 @@ func GetMarketData() (GlobalMarketData, error) {
 
 // GetCoinData get information about a crypto currency
 func GetCoinData(coin string) (Coin, error) {
-	url = fmt.Sprintf("%s/ticker/%s", baseUrl, coin)
+	url = fmt.Sprintf("%s/ticker/%s", baseURL, coin)
 	resp, err := makeReq(url)
 	if err != nil {
 		return Coin{}, err
@@ -55,7 +55,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 	if limit >= 0 {
 		l = fmt.Sprintf("?limit=%v", limit)
 	}
-	url = fmt.Sprintf("%s/ticker/%s", baseUrl, l)
+	url = fmt.Sprintf("%s/ticker/%s", baseURL, l)
 
 	resp, err := makeReq(url)
 
@@ -75,7 +75,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 
 // GetCoinGraphData get graph data points for a crypto currency
 func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
-	url = fmt.Sprintf("%s/%s/%d/%d", graphUrl, coin, start*1000, end*1000)
+	url = fmt.Sprintf("%s/%s/%d/%d", graphURL, coin, start*1000, end*1000)
 	resp, err := makeReq(url)
 	if err != nil {
 		return CoinGraph{}, err
@@ -150,13 +150,13 @@ func makeReq(url string) ([]byte, error) {
 }
 
 // helper Function for CoinMarkets
-func toInt(raw_int string) int {
-	parsed, _ := strconv.Atoi(strings.Replace(strings.Replace(raw_int, "$", "", -1), ",", "", -1))
+func toInt(rawInt string) int {
+	parsed, _ := strconv.Atoi(strings.Replace(strings.Replace(rawInt, "$", "", -1), ",", "", -1))
 	return parsed
 }
 
 // helper Function for CoinMarkets
-func toFloat(raw_float string) float64 {
-	parsed, _ := strconv.ParseFloat(strings.Replace(strings.Replace(strings.Replace(raw_float, "$", "", -1), ",", "", -1), "%", "", -1), 64)
+func toFloat(rawFloat string) float64 {
+	parsed, _ := strconv.ParseFloat(strings.Replace(strings.Replace(strings.Replace(rawFloat, "$", "", -1), ",", "", -1), "%", "", -1), 64)
 	return parsed
 }

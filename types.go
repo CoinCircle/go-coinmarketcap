@@ -1,6 +1,6 @@
 package coinmarketcap
 
-//Coin struct
+// Coin struct
 type Coin struct {
 	ID               string  `json:"id"`
 	Name             string  `json:"name"`
@@ -18,7 +18,7 @@ type Coin struct {
 	LastUpdated      string  `json:"last_updated"`
 }
 
-//GlobalMarketData struct
+// GlobalMarketData struct
 type GlobalMarketData struct {
 	TotalMarketCapUsd            float64 `json:"total_market_cap_usd"`
 	Total24hVolumeUsd            float64 `json:"total_24h_volume_usd"`
@@ -36,7 +36,7 @@ type CoinGraph struct {
 	VolumeUsd                  [][]float64 `json:"volume_usd"`
 }
 
-//CoinMarkets struct
+// Market struct
 type Market struct {
 	Rank          int
 	Exchange      string
