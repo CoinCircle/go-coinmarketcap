@@ -10,7 +10,7 @@ import (
 
 var (
 	baseUrl  = "https://api.coinmarketcap.com/v1"
-	graphUrl = "https://graphs.coinmarketcap.com/currencies"
+	graphUrl = "https://graphs2.coinmarketcap.com/currencies"
 	url      string
 )
 
