@@ -4,8 +4,11 @@ package coinmarketcap
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/anaskhan96/soup"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
 var (
@@ -116,4 +119,43 @@ func makeReq(url string) ([]byte, error) {
 	}
 
 	return resp, err
+}
+
+// Helper Function for CoinMarkets
+func toInt(raw_int string) int {
+	parsed, _ := strconv.Atoi(strings.Replace(strings.Replace(raw_int, "$", "", -1), ",", "", -1))
+	return parsed
+}
+
+// Helper Function for CoinMarkets
+func toFloat(raw_float string) float64 {
+	parsed, _ := strconv.ParseFloat(strings.Replace(strings.Replace(strings.Replace(raw_float, "$", "", -1), ",", "", -1), "%", "", -1), 64)
+	return parsed
+}
+
+// Get market data for a coin name.
+func CoinMarkets(coin string) ([]Market, error) {
+	url := fmt.Sprintf("https://coinmarketcap.com/currencies/%s/#markets", coin)
+	var markets []Market
+	response, err := soup.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	rows := soup.HTMLParse(response).Find("table", "id", "markets-table").Find("tbody").FindAll("tr")
+	for _, row := range rows {
+		var data []string
+		for colNum, column := range row.FindAll("td") {
+			for _, link := range column.FindAll("a") {
+				data = append(data, strings.TrimSpace(link.Text()))
+			}
+			if colNum == 0 || colNum == 5 || colNum == 6 {
+				data = append(data, column.Text())
+			}
+			for _, span := range column.FindAll("span") {
+				data = append(data, strings.TrimSpace(span.Text()))
+			}
+		}
+		markets = append(markets, Market{Rank: toInt(data[0]), Exchange: data[1], Pair: data[2], Volume: toInt(data[3]), Price: toFloat(data[4]), PercentVolume: toFloat(data[5]), Updated: (data[6] == "Recently")})
+	}
+	return markets, nil
 }
