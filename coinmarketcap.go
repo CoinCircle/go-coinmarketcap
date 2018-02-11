@@ -35,6 +35,7 @@ func GetMarketData() (GlobalMarketData, error) {
 
 // GetCoinData get information about a crypto currency
 func GetCoinData(coin string) (Coin, error) {
+	coin = strings.ToLower(coin)
 	url = fmt.Sprintf("%s/ticker/%s", baseURL, coin)
 	resp, err := makeReq(url)
 	if err != nil {
@@ -87,6 +88,15 @@ func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	}
 
 	return data, nil
+}
+
+// GetCoinPriceUsd get USD price of crypto currency
+func GetCoinPriceUsd(coin string) (float64, error) {
+	data, err := GetCoinData(coin)
+	if err != nil {
+		return float64(0), nil
+	}
+	return data.PriceUsd, nil
 }
 
 // CoinMarkets get market data for a coin name.
