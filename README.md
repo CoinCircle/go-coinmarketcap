@@ -1,6 +1,6 @@
 # go-coinmarketcap
 
-> [CoinMarketCap](https://coinmarketcap.com/) client for Golang.
+> [CoinMarketCap](https://coinmarketcap.com/) API client for Go.
 
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/miguelmota/go-coinmarketcap/master/LICENSE.md) [![Go Report Card](https://goreportcard.com/badge/github.com/miguelmota/go-coinmarketcap?)](https://goreportcard.com/report/github.com/miguelmota/go-coinmarketcap) [![GoDoc](https://godoc.org/github.com/miguelmota/go-coinmarketcap?status.svg)](https://godoc.org/github.com/miguelmota/go-coinmarketcap)
 
