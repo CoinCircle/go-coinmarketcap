@@ -1,4 +1,4 @@
-// Package coinmarketcap Coin Market Cap API fo Golang
+// Package coinmarketcap Coin Market Cap API client for Go
 package coinmarketcap
 
 import (
