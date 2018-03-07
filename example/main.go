@@ -5,12 +5,12 @@ import (
 	"log"
 	"time"
 
-	coinApi "github.com/miguelmota/go-coinmarketcap"
+	cmc "github.com/miguelmota/go-coinmarketcap"
 )
 
 func main() {
 	// Get global market data
-	marketInfo, err := coinApi.GetMarketData()
+	marketInfo, err := cmc.GetMarketData()
 	if err != nil {
 		log.Println(err)
 	} else {
@@ -18,7 +18,7 @@ func main() {
 	}
 
 	// Get info about coin
-	coinInfo, err := coinApi.GetCoinData("ethereum")
+	coinInfo, err := cmc.GetCoinData("ethereum")
 	if err != nil {
 		log.Println(err)
 	} else {
@@ -26,7 +26,7 @@ func main() {
 	}
 
 	// Get top 10 coins
-	top10, err := coinApi.GetAllCoinData(10)
+	top10, err := cmc.GetAllCoinData(10)
 	if err != nil {
 		log.Println(err)
 	} else {
@@ -40,7 +40,7 @@ func main() {
 	end := secs
 
 	// Get graph data for coin
-	coinGraphData, err := coinApi.GetCoinGraphData("ethereum", start, end)
+	coinGraphData, err := cmc.GetCoinGraphData("ethereum", start, end)
 	if err != nil {
 		log.Println(err)
 	} else {
