@@ -30,7 +30,7 @@ type GlobalMarketData struct {
 
 // CoinGraph struct
 type CoinGraph struct {
-	MarketCapByAvailableAupply [][]float64 `json:"market_cap_by_available_supply"`
+	MarketCapByAvailableSupply [][]float64 `json:"market_cap_by_available_supply"`
 	PriceBTC                   [][]float64 `json:"price_btc"`
 	PriceUSD                   [][]float64 `json:"price_usd"`
 	VolumeUSD                  [][]float64 `json:"volume_usd"`
