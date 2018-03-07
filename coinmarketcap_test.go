@@ -20,8 +20,8 @@ func TestGetCoinGraphData(t *testing.T) {
 
 }
 
-func TestGetCoinPriceUsd(t *testing.T) {
-	price, err := GetCoinPriceUsd("ethereum")
+func TestGetCoinPriceUSD(t *testing.T) {
+	price, err := GetCoinPriceUSD("ethereum")
 	if err != nil {
 		t.FailNow()
 	}

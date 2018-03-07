@@ -89,13 +89,13 @@ func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 	return data, nil
 }
 
-// GetCoinPriceUsd get USD price of crypto currency
-func GetCoinPriceUsd(coin string) (float64, error) {
+// GetCoinPriceUSD get USD price of crypto currency
+func GetCoinPriceUSD(coin string) (float64, error) {
 	data, err := GetCoinData(coin)
 	if err != nil {
 		return float64(0), nil
 	}
-	return data.PriceUsd, nil
+	return data.PriceUSD, nil
 }
 
 // CoinMarkets get market data for a coin name.
