@@ -11,6 +11,21 @@ func TestGetMarketData(t *testing.T) {
 		t.FailNow()
 	}
 
+	if market.ActiveAssets == 0 {
+		t.FailNow()
+	}
+	if market.ActiveCurrencies == 0 {
+		t.FailNow()
+	}
+	if market.ActiveMarkets == 0 {
+		t.FailNow()
+	}
+	if market.BitcoinPercentageOfMarketCap == 0 {
+		t.FailNow()
+	}
+	if market.Total24HVolumeUSD == 0 {
+		t.FailNow()
+	}
 	if market.TotalMarketCapUSD == 0 {
 		t.FailNow()
 	}
@@ -26,6 +41,10 @@ func TestGetMarketGraphData(t *testing.T) {
 		t.FailNow()
 	}
 
+	if graph.MarketCapByAvailableSupply[0][0] == 0 {
+		t.FailNow()
+	}
+
 	if graph.VolumeUSD[0][0] == 0 {
 		t.FailNow()
 	}
@@ -37,7 +56,46 @@ func TestGetCoinData(t *testing.T) {
 		t.FailNow()
 	}
 
+	if coin.AvailableSupply == 0 {
+		t.FailNow()
+	}
+	if coin.ID == "" {
+		t.FailNow()
+	}
+	if coin.LastUpdated == "" {
+		t.FailNow()
+	}
+	if coin.MarketCapUSD == 0 {
+		t.FailNow()
+	}
+	if coin.Name == "" {
+		t.FailNow()
+	}
+	if coin.PercentChange1H == 0 {
+		t.FailNow()
+	}
+	if coin.PercentChange24H == 0 {
+		t.FailNow()
+	}
+	if coin.PercentChange7D == 0 {
+		t.FailNow()
+	}
+	if coin.PriceBTC == 0 {
+		t.FailNow()
+	}
 	if coin.PriceUSD == 0 {
+		t.FailNow()
+	}
+	if coin.Rank == 0 {
+		t.FailNow()
+	}
+	if coin.Symbol == "" {
+		t.FailNow()
+	}
+	if coin.TotalSupply == 0 {
+		t.FailNow()
+	}
+	if coin.USD24HVolume == 0 {
 		t.FailNow()
 	}
 }
@@ -63,7 +121,16 @@ func TestGetCoinGraphData(t *testing.T) {
 		t.FailNow()
 	}
 
+	if graph.MarketCapByAvailableSupply[0][0] == 0 {
+		t.FailNow()
+	}
+	if graph.PriceBTC[0][0] == 0 {
+		t.FailNow()
+	}
 	if graph.PriceUSD[0][0] == 0 {
+		t.FailNow()
+	}
+	if graph.VolumeUSD[0][0] == 0 {
 		t.FailNow()
 	}
 }
