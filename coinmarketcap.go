@@ -98,8 +98,8 @@ func GetCoinPriceUSD(coin string) (float64, error) {
 	return data.PriceUSD, nil
 }
 
-// CoinMarkets get market data for a coin name.
-func CoinMarkets(coin string) ([]Market, error) {
+// GetCoinMarkets get market data for a coin name
+func GetCoinMarkets(coin string) ([]Market, error) {
 	url := fmt.Sprintf("https://coinmarketcap.com/currencies/%s/#markets", coin)
 	var markets []Market
 	response, err := soup.Get(url)
@@ -109,23 +109,28 @@ func CoinMarkets(coin string) ([]Market, error) {
 	rows := soup.HTMLParse(response).Find("table", "id", "markets-table").Find("tbody").FindAll("tr")
 	for _, row := range rows {
 		var data []string
-		for colNum, column := range row.FindAll("td") {
-			for _, link := range column.FindAll("a") {
-				data = append(data, strings.TrimSpace(link.Text()))
-			}
-			if colNum == 0 || colNum == 5 || colNum == 6 {
+		for _, column := range row.FindAll("td") {
+			attrs := column.Attrs()
+			if attrs["data-sort"] != "" {
+				data = append(data, attrs["data-sort"])
+			} else {
 				data = append(data, column.Text())
 			}
-			for _, span := range column.FindAll("span") {
-				data = append(data, strings.TrimSpace(span.Text()))
-			}
 		}
-		markets = append(markets, Market{Rank: toInt(data[0]), Exchange: data[1], Pair: data[2], Volume: toInt(data[3]), Price: toFloat(data[4]), PercentVolume: toFloat(data[5]), Updated: (data[6] == "Recently")})
+		markets = append(markets, Market{
+			Rank:          toInt(data[0]),
+			Exchange:      data[1],
+			Pair:          data[2],
+			VolumeUSD:     toFloat(data[3]),
+			Price:         toFloat(data[4]),
+			VolumePercent: toFloat(data[5]),
+			Updated:       data[6],
+		})
 	}
 	return markets, nil
 }
 
-// HTTP Client
+// doReq HTTP client
 func doReq(req *http.Request) ([]byte, error) {
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -144,7 +149,7 @@ func doReq(req *http.Request) ([]byte, error) {
 	return body, nil
 }
 
-// HTTP Request Helper
+// makeReq HTTP request helper
 func makeReq(url string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -158,13 +163,13 @@ func makeReq(url string) ([]byte, error) {
 	return resp, err
 }
 
-// helper Function for CoinMarkets
+// toInt helper for parsing strings to int
 func toInt(rawInt string) int {
 	parsed, _ := strconv.Atoi(strings.Replace(strings.Replace(rawInt, "$", "", -1), ",", "", -1))
 	return parsed
 }
 
-// helper Function for CoinMarkets
+// toFloat helper for parsing strings to float
 func toFloat(rawFloat string) float64 {
 	parsed, _ := strconv.ParseFloat(strings.Replace(strings.Replace(strings.Replace(rawFloat, "$", "", -1), ",", "", -1), "%", "", -1), 64)
 	return parsed

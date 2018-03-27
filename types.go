@@ -41,8 +41,8 @@ type Market struct {
 	Rank          int
 	Exchange      string
 	Pair          string
-	Volume        int
+	VolumeUSD     float64
 	Price         float64
-	PercentVolume float64
-	Updated       bool
+	VolumePercent float64
+	Updated       string
 }
