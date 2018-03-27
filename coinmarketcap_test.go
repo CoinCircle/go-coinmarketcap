@@ -50,6 +50,25 @@ func TestGetMarketGraphData(t *testing.T) {
 	}
 }
 
+func TestGetAltcoinMarketGraphData(t *testing.T) {
+	var threeMonths int64 = (60 * 60 * 24 * 90)
+	end := time.Now().Unix()
+	start := end - threeMonths
+
+	graph, err := GetAltcoinMarketGraphData(start, end)
+	if err != nil {
+		t.FailNow()
+	}
+
+	if graph.MarketCapByAvailableSupply[0][0] == 0 {
+		t.FailNow()
+	}
+
+	if graph.VolumeUSD[0][0] == 0 {
+		t.FailNow()
+	}
+}
+
 func TestGetCoinData(t *testing.T) {
 	coin, err := GetCoinData("ethereum")
 	if err != nil {
