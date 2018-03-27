@@ -13,8 +13,9 @@ import (
 )
 
 var (
-	baseURL  = "https://api.coinmarketcap.com/v1"
-	graphURL = "https://graphs2.coinmarketcap.com/currencies"
+	baseURL        = "https://api.coinmarketcap.com/v1"
+	graphURL       = "https://graphs2.coinmarketcap.com/currencies"
+	marketGraphURL = "https://graphs2.coinmarketcap.com/global/marketcap-total"
 )
 
 // GetMarketData get information about the global market data of the cryptocurrencies
@@ -27,6 +28,22 @@ func GetMarketData() (GlobalMarketData, error) {
 	err = json.Unmarshal(resp, &data)
 	if err != nil {
 		return GlobalMarketData{}, err
+	}
+
+	return data, nil
+}
+
+// GetMarketGraphData get graph data points of global market
+func GetMarketGraphData(start int64, end int64) (MarketGraph, error) {
+	url := fmt.Sprintf("%s/%d/%d", marketGraphURL, start*1000, end*1000)
+	resp, err := makeReq(url)
+	if err != nil {
+		return MarketGraph{}, err
+	}
+	var data MarketGraph
+	err = json.Unmarshal(resp, &data)
+	if err != nil {
+		return MarketGraph{}, err
 	}
 
 	return data, nil

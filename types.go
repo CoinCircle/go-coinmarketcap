@@ -46,3 +46,9 @@ type Market struct {
 	VolumePercent float64
 	Updated       string
 }
+
+// MarketGraph struct
+type MarketGraph struct {
+	MarketCapByAvailableSupply [][]float64 `json:"market_cap_by_available_supply"`
+	VolumeUSD                  [][]float64 `json:"volume_usd"`
+}
