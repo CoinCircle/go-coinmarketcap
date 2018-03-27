@@ -5,8 +5,8 @@ import (
 	"time"
 )
 
-func TestGetMarketData(t *testing.T) {
-	market, err := GetMarketData()
+func TestGetGlobalMarketData(t *testing.T) {
+	market, err := GetGlobalMarketData()
 	if err != nil {
 		t.FailNow()
 	}
@@ -31,12 +31,12 @@ func TestGetMarketData(t *testing.T) {
 	}
 }
 
-func TestGetMarketGraphData(t *testing.T) {
+func TestGetGlobalMarketGraphData(t *testing.T) {
 	var threeMonths int64 = (60 * 60 * 24 * 90)
 	end := time.Now().Unix()
 	start := end - threeMonths
 
-	graph, err := GetMarketGraphData(start, end)
+	graph, err := GetGlobalMarketGraphData(start, end)
 	if err != nil {
 		t.FailNow()
 	}

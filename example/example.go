@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Get global market data
-	marketInfo, err := cmc.GetMarketData()
+	marketInfo, err := cmc.GetGlobalMarketData()
 	if err != nil {
 		log.Println(err)
 	} else {

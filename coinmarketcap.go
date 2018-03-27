@@ -19,8 +19,8 @@ var (
 	altcoinMarketGraphURL = "https://graphs2.coinmarketcap.com/global/marketcap-altcoin"
 )
 
-// GetMarketData get information about the global market data of the cryptocurrencies
-func GetMarketData() (GlobalMarketData, error) {
+// GetGlobalMarketData get information about the global market data of the cryptocurrencies
+func GetGlobalMarketData() (GlobalMarketData, error) {
 	url := fmt.Sprintf(baseURL + "/global/")
 
 	resp, err := makeReq(url)
@@ -34,8 +34,8 @@ func GetMarketData() (GlobalMarketData, error) {
 	return data, nil
 }
 
-// GetMarketGraphData get graph data points of global market
-func GetMarketGraphData(start int64, end int64) (MarketGraph, error) {
+// GetGlobalMarketGraphData get graph data points of global market
+func GetGlobalMarketGraphData(start int64, end int64) (MarketGraph, error) {
 	url := fmt.Sprintf("%s/%d/%d", globalMarketGraphURL, start*1000, end*1000)
 	resp, err := makeReq(url)
 	if err != nil {
