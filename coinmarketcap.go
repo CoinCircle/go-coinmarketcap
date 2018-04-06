@@ -109,7 +109,7 @@ func GetAllCoinData(limit int) (map[string]Coin, error) {
 
 // GetCoinGraphData get graph data points for a crypto currency
 func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
-	url := fmt.Sprintf("%s/%s/%d/%d", coinGraphURL, coin, start*1000, end*1000)
+	url := fmt.Sprintf("%s/%s/%d/%d", coinGraphURL, strings.ToLower(coin), start*1000, end*1000)
 	resp, err := makeReq(url)
 	if err != nil {
 		return CoinGraph{}, err
@@ -125,7 +125,7 @@ func GetCoinGraphData(coin string, start int64, end int64) (CoinGraph, error) {
 
 // GetCoinPriceUSD get USD price of crypto currency
 func GetCoinPriceUSD(coin string) (float64, error) {
-	data, err := GetCoinData(coin)
+	data, err := GetCoinData(strings.ToLower(coin))
 	if err != nil {
 		return float64(0), nil
 	}
@@ -134,7 +134,7 @@ func GetCoinPriceUSD(coin string) (float64, error) {
 
 // GetCoinMarkets get market data for a coin name
 func GetCoinMarkets(coin string) ([]Market, error) {
-	url := fmt.Sprintf("https://coinmarketcap.com/currencies/%s/#markets", coin)
+	url := fmt.Sprintf("https://coinmarketcap.com/currencies/%s/#markets", strings.ToLower(coin))
 	var markets []Market
 	response, err := soup.Get(url)
 	if err != nil {
