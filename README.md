@@ -14,9 +14,33 @@
 go get -u github.com/miguelmota/go-coinmarketcap
 ```
 
+## Getting started
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+
+	cmc "github.com/miguelmota/go-coinmarketcap"
+)
+
+func main() {
+	coins, err := cmc.GetAllCoinData(0)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, coin := range coins {
+		fmt.Println(coin.Symbol, coin.PriceUSD)
+	}
+}
+```
+
 ## Examples
 
-Check out the [`./example`](./example) folder and documentation.
+Check out the [`./example`](./example) directory and documentation.
 
 ## License
 
