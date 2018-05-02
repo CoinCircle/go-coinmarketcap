@@ -1,5 +1,9 @@
 <h1 align="center">
+  <br />
   <img src="https://user-images.githubusercontent.com/168240/39501128-e66e2a18-4d6d-11e8-9e16-88655102da6c.png" alt="go-coinmarketcap" width="600" />
+  <br />
+  <br />
+  <br />
 </h1>
 
 > The Unofficial [CoinMarketCap](https://coinmarketcap.com/) API client for [Go](https://golang.org/).
