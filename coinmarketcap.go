@@ -22,6 +22,21 @@ var (
 	altcoinMarketGraphURL = "https://graphs2.coinmarketcap.com/global/marketcap-altcoin"
 )
 
+// Interface interface
+type Interface interface {
+	Listings() ([]*types.Listing, error)
+	Tickers(options *TickersOptions) (map[string]*types.Ticker, error)
+	Ticker(options *TickerOptions) (*types.Ticker, error)
+	TickerGraph(options *TickerGraphOptions) (*types.TickerGraph, error)
+	GlobalMarket(options *GlobalMarketOptions) (*types.GlobalMarket, error)
+	GlobalMarketGraph(options *GlobalMarketGraphOptions) (*types.MarketGraph, error)
+	GlobalAltcoinMarketGraph(options *GlobalAltcoinMarketGraphOptions) (*types.MarketGraph, error)
+	Markets(options *MarketsOptions) ([]*types.Market, error)
+	Price(options *PriceOptions) (float64, error)
+	CoinID(symbol string) (int, error)
+	CoinSlug(symbol string) (string, error)
+}
+
 // listingsMedia listings response media
 type listingsMedia struct {
 	Data []*types.Listing `json:"data"`
