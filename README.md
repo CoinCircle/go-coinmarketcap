@@ -10,7 +10,7 @@
 
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/coincircle/go-coinmarketcap/master/LICENSE.md) [![Build Status](https://travis-ci.org/coincircle/go-coinmarketcap.svg?branch=master)](https://travis-ci.org/coincircle/go-coinmarketcap) [![Go Report Card](https://goreportcard.com/badge/github.com/coincircle/go-coinmarketcap?)](https://goreportcard.com/report/github.com/coincircle/go-coinmarketcap) [![GoDoc](https://godoc.org/github.com/coincircle/go-coinmarketcap?status.svg)](https://godoc.org/github.com/coincircle/go-coinmarketcap)
 
-Support the CoinMarketCap [V2](https://coinmarketcap.com/api/) Public API.
+Supports the CoinMarketCap Version 2 ((V2)[https://coinmarketcap.com/api]) Public API
 
 ## Documentation
 
