@@ -10,6 +10,8 @@
 
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/coincircle/go-coinmarketcap/master/LICENSE.md) [![Build Status](https://travis-ci.org/coincircle/go-coinmarketcap.svg?branch=master)](https://travis-ci.org/coincircle/go-coinmarketcap) [![Go Report Card](https://goreportcard.com/badge/github.com/coincircle/go-coinmarketcap?)](https://goreportcard.com/report/github.com/coincircle/go-coinmarketcap) [![GoDoc](https://godoc.org/github.com/coincircle/go-coinmarketcap?status.svg)](https://godoc.org/github.com/coincircle/go-coinmarketcap)
 
+Support the CoinMarketCap [V2](https://coinmarketcap.com/api/) Public API.
+
 ## Documentation
 
 [https://godoc.org/github.com/coincircle/go-coinmarketcap](https://godoc.org/github.com/coincircle/go-coinmarketcap)
@@ -33,15 +35,20 @@ import (
 )
 
 func main() {
-	coins, err := cmc.GetAllCoinData(0)
+	coins, err := cmc.Tickers(&cmc.TickersOptions{
+		Start:   0,
+		Limit:   100,
+		Convert: "USD",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	for _, coin := range coins {
-		fmt.Println(coin.Symbol, coin.PriceUSD)
+		fmt.Println(coin.Symbol, coin.Quotes["USD"].Price)
 	}
 }
+
 ```
 
 ## Examples

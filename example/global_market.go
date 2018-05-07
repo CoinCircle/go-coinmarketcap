@@ -9,10 +9,12 @@ import (
 
 func main() {
 	// Get global market data
-	marketInfo, err := cmc.GetGlobalMarketData()
+	market, err := cmc.GlobalMarket(&cmc.GlobalMarketOptions{
+		Convert: "USD",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(marketInfo)
+	fmt.Println(market.ActiveCurrencies)
 }

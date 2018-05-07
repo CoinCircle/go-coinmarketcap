@@ -9,10 +9,13 @@ import (
 
 func main() {
 	// Get info about coin
-	coinInfo, err := cmc.GetCoinData("ethereum")
+	coin, err := cmc.Ticker(&cmc.TickerOptions{
+		Symbol:  "ETH",
+		Convert: "EUR",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(coinInfo)
+	fmt.Println(coin.Name, coin.Quotes["EUR"].Price)
 }

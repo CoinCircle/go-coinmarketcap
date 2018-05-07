@@ -16,10 +16,14 @@ func main() {
 	end := secs
 
 	// Get graph data for coin
-	coinGraphData, err := cmc.GetCoinGraphData("ethereum", start, end)
+	graph, err := cmc.TickerGraph(&cmc.TickerGraphOptions{
+		Symbol: "ETH",
+		Start:  start,
+		End:    end,
+	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(coinGraphData)
+	fmt.Println(graph)
 }

@@ -5,137 +5,97 @@ import (
 	"time"
 )
 
-func TestGetGlobalMarketData(t *testing.T) {
-	market, err := GetGlobalMarketData()
+func TestListings(t *testing.T) {
+	listings, err := Listings()
 	if err != nil {
-		t.FailNow()
+		t.Error(err)
 	}
 
-	if market.ActiveAssets == 0 {
-		t.FailNow()
-	}
-	if market.ActiveCurrencies == 0 {
-		t.FailNow()
-	}
-	if market.ActiveMarkets == 0 {
-		t.FailNow()
-	}
-	if market.BitcoinPercentageOfMarketCap == 0 {
-		t.FailNow()
-	}
-	if market.Total24HVolumeUSD == 0 {
-		t.FailNow()
-	}
-	if market.TotalMarketCapUSD == 0 {
+	if len(listings) == 0 {
 		t.FailNow()
 	}
 }
 
-func TestGetGlobalMarketGraphData(t *testing.T) {
+func TestTickers(t *testing.T) {
+	tickers, err := Tickers(&TickersOptions{
+		Start:   0,
+		Limit:   10,
+		Convert: "USD",
+	})
+	if err != nil {
+		t.Error(err)
+	}
+
+	if len(tickers) != 10 {
+		t.FailNow()
+	}
+}
+
+func TestTicker(t *testing.T) {
+	ticker, err := Ticker(&TickerOptions{
+		Symbol:  "ETH",
+		Convert: "USD",
+	})
+	if err != nil {
+		t.FailNow()
+	}
+	if ticker.ID <= 0 {
+		t.FailNow()
+	}
+	if ticker.Name != "Ethereum" {
+		t.FailNow()
+	}
+	if ticker.Symbol != "ETH" {
+		t.FailNow()
+	}
+	if ticker.Slug != "ethereum" {
+		t.FailNow()
+	}
+	if ticker.Rank <= 0 {
+		t.FailNow()
+	}
+	if ticker.CirculatingSupply <= 0 {
+		t.FailNow()
+	}
+	if ticker.TotalSupply <= 0 {
+		t.FailNow()
+	}
+	if ticker.MaxSupply <= -1 {
+		t.FailNow()
+	}
+	if ticker.LastUpdated <= 0 {
+		t.FailNow()
+	}
+	if ticker.Quotes["USD"].MarketCap <= 0 {
+		t.FailNow()
+	}
+	if ticker.Quotes["USD"].Volume24H <= 0 {
+		t.FailNow()
+	}
+	if ticker.Quotes["USD"].MarketCap <= 0 {
+		t.FailNow()
+	}
+	if ticker.Quotes["USD"].PercentChange1H == 0 {
+		t.FailNow()
+	}
+	if ticker.Quotes["USD"].PercentChange24H == 0 {
+		t.FailNow()
+	}
+	if ticker.Quotes["USD"].PercentChange7D == 0 {
+		t.FailNow()
+	}
+}
+
+func TestTickerGraph(t *testing.T) {
 	var threeMonths int64 = (60 * 60 * 24 * 90)
 	end := time.Now().Unix()
 	start := end - threeMonths
 
-	graph, err := GetGlobalMarketGraphData(start, end)
-	if err != nil {
-		t.FailNow()
-	}
-
-	if graph.MarketCapByAvailableSupply[0][0] == 0 {
-		t.FailNow()
-	}
-
-	if graph.VolumeUSD[0][0] == 0 {
-		t.FailNow()
-	}
-}
-
-func TestGetAltcoinMarketGraphData(t *testing.T) {
-	var threeMonths int64 = (60 * 60 * 24 * 90)
-	end := time.Now().Unix()
-	start := end - threeMonths
-
-	graph, err := GetAltcoinMarketGraphData(start, end)
-	if err != nil {
-		t.FailNow()
-	}
-
-	if graph.MarketCapByAvailableSupply[0][0] == 0 {
-		t.FailNow()
-	}
-
-	if graph.VolumeUSD[0][0] == 0 {
-		t.FailNow()
-	}
-}
-
-func TestGetCoinData(t *testing.T) {
-	coin, err := GetCoinData("ethereum")
-	if err != nil {
-		t.FailNow()
-	}
-
-	if coin.AvailableSupply == 0 {
-		t.FailNow()
-	}
-	if coin.ID == "" {
-		t.FailNow()
-	}
-	if coin.LastUpdated == "" {
-		t.FailNow()
-	}
-	if coin.MarketCapUSD == 0 {
-		t.FailNow()
-	}
-	if coin.Name == "" {
-		t.FailNow()
-	}
-	if coin.PercentChange1H == 0 {
-		t.FailNow()
-	}
-	if coin.PercentChange24H == 0 {
-		t.FailNow()
-	}
-	if coin.PercentChange7D == 0 {
-		t.FailNow()
-	}
-	if coin.PriceBTC == 0 {
-		t.FailNow()
-	}
-	if coin.PriceUSD == 0 {
-		t.FailNow()
-	}
-	if coin.Rank == 0 {
-		t.FailNow()
-	}
-	if coin.Symbol == "" {
-		t.FailNow()
-	}
-	if coin.TotalSupply == 0 {
-		t.FailNow()
-	}
-	if coin.USD24HVolume == 0 {
-		t.FailNow()
-	}
-}
-
-func TestGetAllCoinData(t *testing.T) {
-	coins, err := GetAllCoinData(10)
-	if err != nil {
-		t.FailNow()
-	}
-
-	if len(coins) != 10 {
-		t.FailNow()
-	}
-}
-
-func TestGetCoinGraphData(t *testing.T) {
-	var threeMonths int64 = (60 * 60 * 24 * 90)
-	end := time.Now().Unix()
-	start := end - threeMonths
-
-	graph, err := GetCoinGraphData("ethereum", start, end)
+	graph, err := TickerGraph(&TickerGraphOptions{
+		Symbol: "ETH",
+		Start:  start,
+		End:    end,
+	})
 	if err != nil {
 		t.FailNow()
 	}
@@ -154,18 +114,75 @@ func TestGetCoinGraphData(t *testing.T) {
 	}
 }
 
-func TestGetCoinPriceUSD(t *testing.T) {
-	price, err := GetCoinPriceUSD("ethereum")
+func TestGlobalMarket(t *testing.T) {
+	market, err := GlobalMarket(&GlobalMarketOptions{
+		Convert: "USD",
+	})
 	if err != nil {
 		t.FailNow()
 	}
-	if price <= 0 {
+	if market.ActiveCurrencies <= 0 {
+		t.FailNow()
+	}
+	if market.ActiveMarkets <= 0 {
+		t.FailNow()
+	}
+	if market.LastUpdated <= 0 {
+		t.FailNow()
+	}
+	if market.BitcoinPercentageOfMarketCap == 0 {
+		t.FailNow()
+	}
+	if market.Quotes["USD"].TotalVolume24H == 0 {
+		t.FailNow()
+	}
+	if market.Quotes["USD"].TotalMarketCap == 0 {
 		t.FailNow()
 	}
 }
 
-func TestGetCoinMarkets(t *testing.T) {
-	markets, err := GetCoinMarkets("ethereum")
+func TestGlobalMarketGraph(t *testing.T) {
+	var threeMonths int64 = (60 * 60 * 24 * 90)
+	end := time.Now().Unix()
+	start := end - threeMonths
+	graph, err := GlobalMarketGraph(&GlobalMarketGraphOptions{
+		Start: start,
+		End:   end,
+	})
+	if err != nil {
+		t.FailNow()
+	}
+	if graph.MarketCapByAvailableSupply[0][0] == 0 {
+		t.FailNow()
+	}
+	if graph.VolumeUSD[0][0] == 0 {
+		t.FailNow()
+	}
+}
+
+func TestGlobalAltcoinMarketGraph(t *testing.T) {
+	var threeMonths int64 = (60 * 60 * 24 * 90)
+	end := time.Now().Unix()
+	start := end - threeMonths
+	graph, err := GlobalAltcoinMarketGraph(&GlobalAltcoinMarketGraphOptions{
+		Start: start,
+		End:   end,
+	})
+	if err != nil {
+		t.FailNow()
+	}
+	if graph.MarketCapByAvailableSupply[0][0] == 0 {
+		t.FailNow()
+	}
+	if graph.VolumeUSD[0][0] == 0 {
+		t.FailNow()
+	}
+}
+
+func TestMarkets(t *testing.T) {
+	markets, err := Markets(&MarketsOptions{
+		Symbol: "ETH",
+	})
 	if err != nil {
 		t.FailNow()
 	}
@@ -193,6 +210,19 @@ func TestGetCoinMarkets(t *testing.T) {
 		t.FailNow()
 	}
 	if market.Updated == "" {
+	}
+}
+
+func TestPrice(t *testing.T) {
+	price, err := Price(&PriceOptions{
+		Symbol:  "ETH",
+		Convert: "USD",
+	})
+	if err != nil {
+		t.FailNow()
+	}
+	if price <= 0 {
+		t.FailNow()
 	}
 }
 
