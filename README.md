@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	coins, err := cmc.Tickers(&cmc.TickersOptions{
+	tickers, err := cmc.Tickers(&cmc.TickersOptions{
 		Start:   0,
 		Limit:   100,
 		Convert: "USD",
@@ -44,8 +44,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	for _, coin := range coins {
-		fmt.Println(coin.Symbol, coin.Quotes["USD"].Price)
+	for _, ticker := range tickers {
+		fmt.Println(ticker.Symbol, ticker.Quotes["USD"].Price)
 	}
 }
 

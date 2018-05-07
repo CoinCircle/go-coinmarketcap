@@ -9,7 +9,7 @@ import (
 
 func main() {
 	// Get info about coin
-	coin, err := cmc.Ticker(&cmc.TickerOptions{
+	ticker, err := cmc.Ticker(&cmc.TickerOptions{
 		Symbol:  "ETH",
 		Convert: "EUR",
 	})
@@ -17,5 +17,5 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(coin.Name, coin.Quotes["EUR"].Price)
+	fmt.Println(ticker.Name, ticker.Quotes["EUR"].Price)
 }
