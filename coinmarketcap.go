@@ -63,11 +63,16 @@ type TickersOptions struct {
 
 // tickerMedia tickers response media
 type tickersMedia struct {
-	Data map[string]*types.Ticker `json:"data"`
+	Data map[string]*types.Ticker `json:"data,omitempty"`
+	Metadata struct {
+		Timestamp int64
+		NumCryptoCurrencies int `json:"num_cryptocurrencies,omitempty"`
+		Error string `json:",omitempty"`
+	}
 }
 
 // Tickers gets ticker information on coins
-func Tickers(options *TickersOptions) (map[string]*types.Ticker, error) {
+func Tickers(options *TickersOptions) (map[string]*types.Ticker, int, error) {
 	var params []string
 	if options.Start >= 0 {
 		params = append(params, fmt.Sprintf("start=%v", options.Start))
@@ -83,14 +88,17 @@ func Tickers(options *TickersOptions) (map[string]*types.Ticker, error) {
 	var body tickersMedia
 	err = json.Unmarshal(resp, &body)
 	if err != nil {
-		return nil, err
+		return nil, 0, err
 	}
 	tickers := make(map[string]*types.Ticker)
 	data := body.Data
 	for _, v := range data {
 		tickers[strings.ToUpper(string(v.Symbol))] = v
 	}
-	return tickers, nil
+	if body.Metadata.Error != "" {
+		err = errors.New(body.Metadata.Error)
+	}
+	return tickers, body.Metadata.NumCryptoCurrencies, err
 }
 
 // TickerOptions options for ticker method
@@ -269,7 +277,7 @@ type PriceOptions struct {
 
 // Price gets price of a cryptocurrency
 func Price(options *PriceOptions) (float64, error) {
-	coins, err := Tickers(&TickersOptions{
+	coins, _, err := Tickers(&TickersOptions{
 		Convert: options.Convert,
 	})
 	if err != nil {
@@ -285,7 +293,7 @@ func Price(options *PriceOptions) (float64, error) {
 // CoinID gets the ID for the cryptocurrency
 func CoinID(symbol string) (int, error) {
 	symbol = strings.ToUpper(strings.TrimSpace(symbol))
-	coins, err := Tickers(&TickersOptions{})
+	coins, _, err := Tickers(&TickersOptions{})
 	if err != nil {
 		return 0, err
 	}
@@ -299,7 +307,7 @@ func CoinID(symbol string) (int, error) {
 // CoinSlug gets the slug for the cryptocurrency
 func CoinSlug(symbol string) (string, error) {
 	symbol = strings.ToUpper(strings.TrimSpace(symbol))
-	coins, err := Tickers(&TickersOptions{})
+	coins, _, err := Tickers(&TickersOptions{})
 	if err != nil {
 		return "", err
 	}
