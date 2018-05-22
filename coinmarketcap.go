@@ -10,9 +10,10 @@ import (
 	"strconv"
 	"strings"
 
+	"sort"
+
 	"github.com/anaskhan96/soup"
 	"github.com/coincircle/go-coinmarketcap/types"
-	"sort"
 )
 
 var (
@@ -64,7 +65,12 @@ type TickersOptions struct {
 
 // tickerMedia tickers response media
 type tickersMedia struct {
-	Data map[string]*types.Ticker `json:"data"`
+	Data     map[string]*types.Ticker `json:"data,omitempty"`
+	Metadata struct {
+		Timestamp           int64
+		NumCryptoCurrencies int    `json:"num_cryptocurrencies,omitempty"`
+		Error               string `json:",omitempty"`
+	}
 }
 
 // Tickers gets ticker information on coins
@@ -91,6 +97,11 @@ func Tickers(options *TickersOptions) ([]*types.Ticker, error) {
 	for _, v := range data {
 		tickers = append(tickers, v)
 	}
+
+	if body.Metadata.Error != "" {
+		return nil, errors.New(body.Metadata.Error)
+	}
+
 	sort.Slice(tickers, func(i, j int) bool {
 		return tickers[i].Rank < tickers[j].Rank
 	})
@@ -276,7 +287,7 @@ type PriceOptions struct {
 func Price(options *PriceOptions) (float64, error) {
 	coin, err := Ticker(&TickerOptions{
 		Convert: options.Convert,
-		Symbol: options.Symbol,
+		Symbol:  options.Symbol,
 	})
 	if err != nil {
 		return 0, err
