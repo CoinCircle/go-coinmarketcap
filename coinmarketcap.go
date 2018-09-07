@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"sort"
 
@@ -22,6 +23,7 @@ var (
 	coinGraphURL          = "https://graphs2.coinmarketcap.com/currencies"
 	globalMarketGraphURL  = "https://graphs2.coinmarketcap.com/global/marketcap-total"
 	altcoinMarketGraphURL = "https://graphs2.coinmarketcap.com/global/marketcap-altcoin"
+	CustomTimeOut         = time.Duration(4 * time.Second)
 )
 
 // Interface interface
@@ -346,7 +348,9 @@ func toFloat(rawFloat string) float64 {
 
 // doReq HTTP client
 func doReq(req *http.Request) ([]byte, error) {
-	client := &http.Client{}
+	client := &http.Client{
+		Timeout: CustomTimeOut,
+	}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
